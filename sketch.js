@@ -30,7 +30,7 @@ function draw() {
     245,
     242,
     235,
-    25
+    80
   );
 
   drawTarget();
@@ -59,10 +59,10 @@ function drawTarget() {
   strokeWeight(2);
 
   circle(
-    target.x,
-    target.y,
-    150 +
-    sin(frameCount * 0.03) * 20
+    target.x =
+    width/2 + sin(frameCount*0.01)*200;
+    target.y =
+    height/2 + cos(frameCount*0.008)*150;
   );
 
   pop();
