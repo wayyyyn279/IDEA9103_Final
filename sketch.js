@@ -1,7 +1,4 @@
-console.log("PERLIN VERSION");
-
 let dots = [];
-let target;
 let target;
 
 function setup() {
@@ -26,11 +23,19 @@ function setup() {
 
 function draw() {
 
+  target.x =
+    width / 2 +
+    sin(frameCount * 0.01) * 250;
+
+  target.y =
+    height / 2 +
+    cos(frameCount * 0.013) * 180;
+
   background(
     245,
     242,
     235,
-    80
+    70
   );
 
   drawTarget();
@@ -47,22 +52,36 @@ function drawTarget() {
 
   push();
 
+  noStroke();
+
+  fill(
+    255,
+    220,
+    180,
+    220
+  );
+
+  circle(
+    target.x,
+    target.y,
+    18
+  );
+
   noFill();
 
   stroke(
-    180,
-    150,
+    190,
+    160,
     120,
-    100
+    80
   );
 
   strokeWeight(2);
 
   circle(
-    target.x =
-    width/2 + sin(frameCount*0.01)*200;
-    target.y =
-    height/2 + cos(frameCount*0.008)*150;
+    target.x,
+    target.y,
+    120
   );
 
   pop();
@@ -76,10 +95,10 @@ class WanderDot {
     this.y = random(height);
 
     this.size =
-      random(5, 18);
+      random(6, 16);
 
     this.speed =
-      random(1, 3);
+      random(1, 2);
 
     this.noiseOffset =
       random(1000);
@@ -87,18 +106,18 @@ class WanderDot {
     this.history = [];
 
     this.orbit =
-      random(1) > 0.7;
+      random(1) > 0.6;
 
     this.radius =
-      random(60, 180);
+      random(50, 140);
 
     this.angle =
       random(TWO_PI);
 
     this.orbitSpeed =
       random(
-        0.005,
-        0.02
+        0.01,
+        0.03
       );
   }
 
@@ -119,9 +138,7 @@ class WanderDot {
         sin(this.angle)
         * this.radius;
 
-    }
-
-    else {
+    } else {
 
       let angle =
         noise(
@@ -162,10 +179,11 @@ class WanderDot {
     );
 
     if (
-      this.history.length >
-      60
+      this.history.length > 40
     ) {
+
       this.history.shift();
+
     }
   }
 
@@ -174,19 +192,18 @@ class WanderDot {
     noFill();
 
     stroke(
-      100,
-      80,
-      60,
-      60
+      120,
+      95,
+      70,
+      80
     );
 
-    strokeWeight(1);
+    strokeWeight(1.2);
 
     beginShape();
 
     for (
-      let p
-      of this.history
+      let p of this.history
     ) {
 
       vertex(
@@ -199,9 +216,9 @@ class WanderDot {
     endShape();
 
     fill(
-      170,
-      130,
-      90,
+      185,
+      145,
+      100,
       180
     );
 
@@ -210,7 +227,10 @@ class WanderDot {
     circle(
       this.x,
       this.y,
-      this.size
+      this.size +
+      sin(
+        frameCount * 0.05
+      ) * 2
     );
   }
 }
@@ -221,5 +241,4 @@ function windowResized() {
     windowWidth,
     windowHeight
   );
-
 }
