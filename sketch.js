@@ -13,7 +13,7 @@ function setup() {
     height / 2
   );
 
-  for (let i = 0; i < 40; i++) {
+  for (let i = 0; i < 15; i++) {
 
     dots.push(
       new WanderDot()
