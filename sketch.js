@@ -10,7 +10,7 @@ function setup() {
     height / 2
   );
 
-  for (let i = 0; i < 15; i++) {
+  for (let i = 0; i < 18; i++) {
 
     dots.push(
       new WanderDot()
@@ -23,19 +23,28 @@ function setup() {
 
 function draw() {
 
-  target.x =
-    width / 2 +
-    sin(frameCount * 0.01) * 250;
+  if (!mouseIsPressed) {
 
-  target.y =
-    height / 2 +
-    cos(frameCount * 0.013) * 180;
+    target.x =
+      width / 2 +
+      sin(frameCount * 0.01) * 250;
+
+    target.y =
+      height / 2 +
+      cos(frameCount * 0.013) * 180;
+
+  } else {
+
+    target.x = mouseX;
+    target.y = mouseY;
+
+  }
 
   background(
     245,
     242,
     235,
-    70
+    35
   );
 
   drawTarget();
@@ -46,6 +55,8 @@ function draw() {
     dot.display();
 
   }
+
+  drawGrid();
 }
 
 function drawTarget() {
@@ -56,9 +67,9 @@ function drawTarget() {
 
   fill(
     255,
-    220,
-    180,
-    220
+    170,
+    90,
+    255
   );
 
   circle(
@@ -70,9 +81,9 @@ function drawTarget() {
   noFill();
 
   stroke(
-    190,
-    160,
-    120,
+    200,
+    170,
+    130,
     80
   );
 
@@ -81,21 +92,72 @@ function drawTarget() {
   circle(
     target.x,
     target.y,
-    120
+    100
+  );
+
+  circle(
+    target.x,
+    target.y,
+    180
   );
 
   pop();
+}
+
+function drawGrid() {
+
+  stroke(
+    180,
+    160,
+    140,
+    20
+  );
+
+  strokeWeight(1);
+
+  for (
+    let x = 0;
+    x < width;
+    x += 120
+  ) {
+
+    line(
+      x,
+      0,
+      x,
+      height
+    );
+
+  }
+
+  for (
+    let y = 0;
+    y < height;
+    y += 120
+  ) {
+
+    line(
+      0,
+      y,
+      width,
+      y
+    );
+
+  }
 }
 
 class WanderDot {
 
   constructor() {
 
-    this.x = random(width);
-    this.y = random(height);
+    this.x =
+      random(width);
+
+    this.y =
+      random(height);
 
     this.size =
-      random(6, 16);
+      random(6, 14);
 
     this.speed =
       random(1, 2);
@@ -106,10 +168,10 @@ class WanderDot {
     this.history = [];
 
     this.orbit =
-      random(1) > 0.6;
+      random(1) > 0.5;
 
     this.radius =
-      random(50, 140);
+      random(50, 150);
 
     this.angle =
       random(TWO_PI);
@@ -157,19 +219,19 @@ class WanderDot {
 
       this.noiseOffset +=
         0.01;
+
+      let dx =
+        target.x - this.x;
+
+      let dy =
+        target.y - this.y;
+
+      this.x +=
+        dx * 0.002;
+
+      this.y +=
+        dy * 0.002;
     }
-
-    if (this.x < 0)
-      this.x = width;
-
-    if (this.x > width)
-      this.x = 0;
-
-    if (this.y < 0)
-      this.y = height;
-
-    if (this.y > height)
-      this.y = 0;
 
     this.history.push(
       createVector(
@@ -179,7 +241,7 @@ class WanderDot {
     );
 
     if (
-      this.history.length > 40
+      this.history.length > 50
     ) {
 
       this.history.shift();
@@ -192,10 +254,10 @@ class WanderDot {
     noFill();
 
     stroke(
-      120,
-      95,
-      70,
-      80
+      90,
+      60,
+      40,
+      120
     );
 
     strokeWeight(1.2);
@@ -216,10 +278,10 @@ class WanderDot {
     endShape();
 
     fill(
-      185,
+      190,
       145,
-      100,
-      180
+      90,
+      220
     );
 
     noStroke();
@@ -227,10 +289,7 @@ class WanderDot {
     circle(
       this.x,
       this.y,
-      this.size +
-      sin(
-        frameCount * 0.05
-      ) * 2
+      this.size
     );
   }
 }
@@ -241,4 +300,5 @@ function windowResized() {
     windowWidth,
     windowHeight
   );
+
 }
