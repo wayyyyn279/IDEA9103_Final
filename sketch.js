@@ -1,4 +1,7 @@
+console.log("PERLIN VERSION");
+
 let dots = [];
+let target;
 let target;
 
 function setup() {
