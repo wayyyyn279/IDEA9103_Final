@@ -2,7 +2,6 @@ let dots = [];
 let target;
 
 function setup() {
-
   createCanvas(windowWidth, windowHeight);
 
   target = createVector(
@@ -11,11 +10,9 @@ function setup() {
   );
 
   for (let i = 0; i < 10; i++) {
-
     dots.push(
       new WanderDot()
     );
-
   }
 
   background(245);
@@ -47,16 +44,13 @@ function draw() {
     35
   );
 
+  drawGrid();
   drawTarget();
 
   for (let dot of dots) {
-
     dot.move();
     dot.display();
-
   }
-
-  drawGrid();
 }
 
 function drawTarget() {
@@ -65,24 +59,22 @@ function drawTarget() {
 
   noStroke();
 
-  // 发光外圈
   fill(
     255,
     180,
     120,
-    30
+    25
   );
 
   circle(
     target.x,
     target.y,
-    80
+    100
   );
 
-  // 中层光晕
   fill(
     255,
-    160,
+    150,
     80,
     60
   );
@@ -90,10 +82,9 @@ function drawTarget() {
   circle(
     target.x,
     target.y,
-    50
+    60
   );
 
-  // 核心激光点
   fill(
     255,
     120,
@@ -104,16 +95,16 @@ function drawTarget() {
   circle(
     target.x,
     target.y,
-    28
+    36
   );
 
   noFill();
 
   stroke(
-    200,
-    170,
-    130,
-    50
+    210,
+    180,
+    140,
+    40
   );
 
   strokeWeight(1.5);
@@ -121,7 +112,7 @@ function drawTarget() {
   circle(
     target.x,
     target.y,
-    120
+    140
   );
 
   pop();
@@ -133,7 +124,7 @@ function drawGrid() {
     180,
     160,
     140,
-    15
+    12
   );
 
   strokeWeight(1);
@@ -150,7 +141,6 @@ function drawGrid() {
       x,
       height
     );
-
   }
 
   for (
@@ -165,7 +155,6 @@ function drawGrid() {
       width,
       y
     );
-
   }
 }
 
@@ -173,11 +162,8 @@ class WanderDot {
 
   constructor() {
 
-    this.x =
-      random(width);
-
-    this.y =
-      random(height);
+    this.x = random(width);
+    this.y = random(height);
 
     this.size =
       random(8, 16);
@@ -215,13 +201,13 @@ class WanderDot {
 
       this.x =
         target.x +
-        cos(this.angle)
-        * this.radius;
+        cos(this.angle) *
+        this.radius;
 
       this.y =
         target.y +
-        sin(this.angle)
-        * this.radius;
+        sin(this.angle) *
+        this.radius;
 
     } else {
 
@@ -233,12 +219,12 @@ class WanderDot {
         4;
 
       this.x +=
-        cos(angle)
-        * this.speed;
+        cos(angle) *
+        this.speed;
 
       this.y +=
-        sin(angle)
-        * this.speed;
+        sin(angle) *
+        this.speed;
 
       this.noiseOffset +=
         0.01;
@@ -249,8 +235,8 @@ class WanderDot {
       let dy =
         target.y - this.y;
 
-      this.x += dx * 0.003;
-      this.y += dy * 0.003;
+      this.x += dx * 0.006;
+      this.y += dy * 0.006;
     }
 
     this.history.push(
@@ -263,9 +249,7 @@ class WanderDot {
     if (
       this.history.length > 25
     ) {
-
       this.history.shift();
-
     }
   }
 
@@ -315,10 +299,8 @@ class WanderDot {
 }
 
 function windowResized() {
-
   resizeCanvas(
     windowWidth,
     windowHeight
   );
-
 }
