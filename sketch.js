@@ -10,7 +10,7 @@ function setup() {
     height / 2
   );
 
-  for (let i = 0; i < 18; i++) {
+  for (let i = 0; i < 10; i++) {
 
     dots.push(
       new WanderDot()
@@ -65,17 +65,46 @@ function drawTarget() {
 
   noStroke();
 
+  // 发光外圈
   fill(
     255,
-    170,
-    90,
+    180,
+    120,
+    30
+  );
+
+  circle(
+    target.x,
+    target.y,
+    80
+  );
+
+  // 中层光晕
+  fill(
+    255,
+    160,
+    80,
+    60
+  );
+
+  circle(
+    target.x,
+    target.y,
+    50
+  );
+
+  // 核心激光点
+  fill(
+    255,
+    120,
+    40,
     255
   );
 
   circle(
     target.x,
     target.y,
-    18
+    28
   );
 
   noFill();
@@ -84,21 +113,15 @@ function drawTarget() {
     200,
     170,
     130,
-    80
+    50
   );
 
-  strokeWeight(2);
+  strokeWeight(1.5);
 
   circle(
     target.x,
     target.y,
-    100
-  );
-
-  circle(
-    target.x,
-    target.y,
-    180
+    120
   );
 
   pop();
@@ -110,7 +133,7 @@ function drawGrid() {
     180,
     160,
     140,
-    20
+    15
   );
 
   strokeWeight(1);
@@ -157,7 +180,7 @@ class WanderDot {
       random(height);
 
     this.size =
-      random(6, 14);
+      random(8, 16);
 
     this.speed =
       random(1, 2);
@@ -226,11 +249,8 @@ class WanderDot {
       let dy =
         target.y - this.y;
 
-      this.x +=
-        dx * 0.002;
-
-      this.y +=
-        dy * 0.002;
+      this.x += dx * 0.003;
+      this.y += dy * 0.003;
     }
 
     this.history.push(
@@ -241,7 +261,7 @@ class WanderDot {
     );
 
     if (
-      this.history.length > 50
+      this.history.length > 25
     ) {
 
       this.history.shift();
@@ -257,10 +277,10 @@ class WanderDot {
       90,
       60,
       40,
-      120
+      140
     );
 
-    strokeWeight(1.2);
+    strokeWeight(1.5);
 
     beginShape();
 
